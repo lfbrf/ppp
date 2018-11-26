@@ -1,0 +1,11 @@
+br/edu/utfpr/CalculaConta.class
+br/edu/utfpr/Application.class
+br/edu/utfpr/Conta.class
+br/edu/utfpr/CalculaOuro.class
+br/edu/utfpr/CalculaBronze.class
+br/edu/utfpr/WebSecurityConfig.class
+br/edu/utfpr/model/User.class
+br/edu/utfpr/repositories/UserRepository.class
+br/edu/utfpr/auditable/AuditorAwareImpl.class
+br/edu/utfpr/MainController.class
+br/edu/utfpr/CalculaPrata.class

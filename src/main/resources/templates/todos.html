@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Security Example</title>
+</head>
+<body>
+	
+
+	<table border="1"  class="highlight responsive-table">
+		<thead>
+			<tr>
+				<th class="">Nome</th>
+				<th class="">Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="t: ${todos}">
+				<td><span class=" truncate" th:text="${t.getName()}"></span></td>
+				<td><span class=" truncate" th:text="${t.getEmail()}"></span></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

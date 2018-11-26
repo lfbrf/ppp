@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Spring Security Example </title>
+    </head>
+    <script>
+    function attTipo(){
+    	var e = document.getElementById("tipos");
+    	var tipo = e.options[e.selectedIndex].value;
+    	document.getElementById("tp").value = tipo;
+    }
+    </script>
+    <body onload="attTipo();">
+    	<span>CRIAR NOVO USUARIO</span>
+        <form th:action="@{api/novousuario}" method="post">
+            <div><label> Nome: <input type="text" name="name"/> </label></div>
+            <div><label> Email: <input type="text" name="email"/> </label></div>
+            <select id="tipos" onchange="attTipo();">
+			  <option value="OURO">OURO</option>
+			  <option value="PRATA">PRATA</option>
+			  <option value="BRONZE">BRONZE</option>
+			</select>
+			<input style="display: none;" id="tp" type="text" name="tipo"/>
+            <div><input  type="submit" value="Enviar"/></div>
+        </form>
+        <span>ADICIONAR SALDO AO USUARIO</span>
+          <form th:action="@{api/creditos}" method="post">
+            <div><label> ID <input type="text" name="id"/> </label></div>
+            <div><label> Valor: <input type="text" name="valor"/> </label></div>
+            <div><input  type="submit" value="Enviar"/></div>
+        </form>
+        
+        <span>DEBITAR SALDO DO USUARIO</span>
+          <form th:action="@{api/debitos}" method="post">
+            <div><label> ID <input type="text" name="id"/> </label></div>
+            <div><label> Valor: <input type="text" name="valor"/> </label></div>
+            <div><input  type="submit" value="Enviar"/></div>
+        </form>
+        
+        
+        <span>LISTAGEM DE USUARIO</span>
+        	<table border="1"  class="highlight responsive-table">
+		<thead>
+			<tr>
+			<th class="">ID</th>
+				<th class="">Nome</th>
+				<th class="">Email</th>
+				<th class="">Tipo</th>
+				<th class="">Valor</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="t: ${todos}">
+			    <td><span class=" truncate" th:text="${t.getId()}"></span></td>
+				<td><span class=" truncate" th:text="${t.getName()}"></span></td>
+				<td><span class=" truncate" th:text="${t.getEmail()}"></span></td>
+				<td><span class=" truncate" th:text="${t.getTipoConta()}"></span></td>
+				<td><span class=" truncate" th:text="${t.getValor()}"></span></td>
+			</tr>
+		</tbody>
+	</table>
+    </body>
+</html>
