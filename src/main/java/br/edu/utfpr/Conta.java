@@ -1,6 +1,8 @@
+//Calulo de desconto no produto da loja por nivel de conta do cliente .
+// USANDO O STRATEGY
 package br.edu.utfpr;
 
-//Calulo de desconto no produto da loja por nivel de conta do cliente.
+
 public class Conta {
 	protected String tipo;
 	protected double valor;
@@ -19,6 +21,7 @@ public class Conta {
 			calculaConta = new CalculaBronze();
 		} else
 			throw new RuntimeException("Conta não encontrada !!");
+		
 
 	}
 

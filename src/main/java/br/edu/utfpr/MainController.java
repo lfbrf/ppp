@@ -58,11 +58,10 @@ public class MainController {
 		User u = userRepository.findById(id).orElse(null);
 		if (u != null) {
 			Conta umaConta = new Conta(u.getTipoConta(), valor);
-			
-			 if (valor> 0 || valor<= 0)
+			 if (valor> 0) {
 				u.setValor(valor + u.getValor());
-			userRepository.save(u);
-			return modelAndView;
+				userRepository.save(u);
+			 }
 		}
 		return modelAndView;
     }

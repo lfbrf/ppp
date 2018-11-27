@@ -1,3 +1,4 @@
+// Nessa classe defino quem foi o responsável por cada entrada no banco.
 package br.edu.utfpr.auditable;
 
 import java.util.Optional;

@@ -1,3 +1,4 @@
+// Entidade do usuario, aqui tambem defino que o Usuario deve ser "auditavel" no banco
 package br.edu.utfpr.model;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity 
 @EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
