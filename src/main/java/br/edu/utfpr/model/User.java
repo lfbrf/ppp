@@ -30,8 +30,18 @@ public class User {
     private String email;
     
     private String tipoConta;
+
+    private boolean status;
     
-    @CreatedBy
+    public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	@CreatedBy
     @Column(nullable = false, updatable = false)
     private String createdBy;
     

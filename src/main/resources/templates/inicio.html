@@ -13,7 +13,7 @@
     </script>
     <body onload="attTipo();">
     	<span>CRIAR NOVO USUARIO</span>
-        <form th:action="@{api/novousuario}" method="post">
+        <form th:action="@{novousuario}" method="post">
             <div><label> Nome: <input type="text" name="name"/> </label></div>
             <div><label> Email: <input type="text" name="email"/> </label></div>
             <select id="tipos" onchange="attTipo();">
@@ -25,14 +25,14 @@
             <div><input  type="submit" value="Enviar"/></div>
         </form>
         <span>ADICIONAR SALDO AO USUARIO</span>
-          <form th:action="@{api/creditos}" method="post">
+          <form th:action="@{creditos}" method="post">
             <div><label> ID <input type="text" name="id"/> </label></div>
             <div><label> Valor: <input type="text" name="valor"/> </label></div>
             <div><input  type="submit" value="Enviar"/></div>
         </form>
         
         <span>DEBITAR SALDO DO USUARIO</span>
-          <form th:action="@{api/debitos}" method="post">
+          <form th:action="@{debitos}" method="post">
             <div><label> ID <input type="text" name="id"/> </label></div>
             <div><label> Valor: <input type="text" name="valor"/> </label></div>
             <div><input  type="submit" value="Enviar"/></div>
@@ -40,6 +40,8 @@
         
         
         <span>LISTAGEM DE USUARIO</span>
+        <form th:action="@{deletar}" method="post" id="my_form">
+        </form>
         	<table border="1"  class="highlight responsive-table">
 		<thead>
 			<tr>
@@ -48,17 +50,27 @@
 				<th class="">Email</th>
 				<th class="">Tipo</th>
 				<th class="">Valor</th>
+				<th class="">Ação</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="t: ${todos}">
+		
+			<tr th:each="t: ${todos}" th:if="${t.isStatus()}">
 			    <td><span class=" truncate" th:text="${t.getId()}"></span></td>
 				<td><span class=" truncate" th:text="${t.getName()}"></span></td>
 				<td><span class=" truncate" th:text="${t.getEmail()}"></span></td>
 				<td><span class=" truncate" th:text="${t.getTipoConta()}"></span></td>
 				<td><span class=" truncate" th:text="${t.getValor()}"></span></td>
+				<td style="display:none;"><input form="my_form" th:value="${t.getId()}" type="text" name="id" th:name="id"/></td>
+				<td>
+				 
+				 <input form="my_form"  type="submit" value="Deletar"/>
+				
+				</td>
 			</tr>
+			
 		</tbody>
 	</table>
+	
     </body>
 </html>

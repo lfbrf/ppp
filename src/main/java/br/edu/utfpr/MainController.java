@@ -2,23 +2,28 @@ package br.edu.utfpr;
 
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.utfpr.adapter.StatusUsuario;
+import br.edu.utfpr.adapter.StatusUsuarioAdapter;
+
 import br.edu.utfpr.model.User;
 import br.edu.utfpr.repositories.UserRepository;
 
 @Controller   
-@RequestMapping(path="/api") 
+@RequestMapping(path="/") 
 public class MainController {
 	@Autowired
 	private UserRepository userRepository;
@@ -26,16 +31,26 @@ public class MainController {
 	@RequestMapping(value = "/novousuario", method = RequestMethod.POST)
     public ModelAndView newUser(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("tipo") String tipo) {    
 		User u = new User();
-		u.setName(name);
-		u.setEmail(email);
-		u.setTipoConta(tipo);
+		StatusUsuario status = new StatusUsuarioAdapter();
+		u = status.on(name, email, tipo);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/api");
+		modelAndView.setViewName("redirect:/");
 		if (!tipo.equals("OURO") && !tipo.equals("PRATA") && !tipo.equals("BRONZE") )
 			return modelAndView; 
-		userRepository.save(u);	
+		userRepository.save(u);
 		return modelAndView;   
     }
+	
+	@RequestMapping(value = "/deletar", method = RequestMethod.POST)
+	public ModelAndView delete(@RequestParam("id") int id) {
+		StatusUsuario status = new StatusUsuarioAdapter();
+		User u = userRepository.findById(id).orElse(null);
+		u = status.off(u);
+		userRepository.save(u);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/");
+		return modelAndView;
+	}
 	
 
 	@GetMapping(path="")
@@ -53,7 +68,7 @@ public class MainController {
 
 		Iterable<User> todos = userRepository.findAll();
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/api");
+		modelAndView.setViewName("redirect:/");
 		model.addAttribute("todos", todos);
 		User u = userRepository.findById(id).orElse(null);
 		if (u != null) {
@@ -72,7 +87,7 @@ public class MainController {
 
 		Iterable<User> todos = userRepository.findAll();
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/api");
+		modelAndView.setViewName("redirect:/");
 		model.addAttribute("todos", todos);
 		User u = userRepository.findById(id).orElse(null);
 		if (u != null) {
